@@ -2,6 +2,7 @@ import Head from "next/head";
 import { NotesCard, SidebarLayout } from "../components";
 import { useGetDoc } from "../hooks";
 import { Note } from "../types";
+import { ClipLoader } from "react-spinners";
 
 const TrashPage = (): React.ReactElement => {
   const {
@@ -10,7 +11,12 @@ const TrashPage = (): React.ReactElement => {
     isError: isUserDataError,
   } = useGetDoc("users");
 
-  if (isUserDataLoading) return <h1>loading...</h1>;
+  if (isUserDataLoading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <ClipLoader />
+      </div>
+    );
 
   return (
     <>
@@ -20,9 +26,7 @@ const TrashPage = (): React.ReactElement => {
       <SidebarLayout>
         <div className="mx-auto mt-20 space-y-5 pb-8 sm:w-11/12 md:w-4/5 lg:w-2/4">
           <div className="flex justify-center">
-            <h1 className="text-center text-xl font-semibold">
-              Trashed Notes
-            </h1>
+            <h1 className="text-center text-xl font-semibold">Trashed Notes</h1>
           </div>
           <div className="space-y-5">
             {userData?.notes

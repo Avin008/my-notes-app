@@ -1,4 +1,5 @@
 import Head from "next/head";
+import {ClipLoader} from "react-spinners";
 import {
   CreateNoteCard,
   SearchbarFilter,
@@ -9,11 +10,7 @@ import {
 import UpdateCreateNoteCard from "../components/UpdateNoteCard";
 import { notesData } from "../data";
 import { useGetDoc } from "../hooks";
-import {
-  useAuthStore,
-  useFilterStore,
-  useToggleNoteStore,
-} from "../store";
+import { useAuthStore, useFilterStore, useToggleNoteStore } from "../store";
 import { Note } from "../types";
 import {
   filterByLabel,
@@ -25,13 +22,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const NotesPage = (): React.ReactElement => {
-  const { openCreateNoteModal } = useToggleNoteStore(
-    (store) => store
-  );
+  const { openCreateNoteModal } = useToggleNoteStore((store) => store);
 
-  const authStatus = useAuthStore(
-    (store: any) => store.authStatus
-  );
+  const authStatus = useAuthStore((store: any) => store.authStatus);
 
   const {
     data: userData,
@@ -54,7 +47,9 @@ const NotesPage = (): React.ReactElement => {
     }
   }, [authStatus]);
 
-  if (isUserDataLoading) return <h1>loading...</h1>;
+  if (isUserDataLoading) return <div className="h-screen flex justify-center items-center">
+    <ClipLoader />
+  </div>;
 
   return (
     <>
@@ -65,15 +60,10 @@ const NotesPage = (): React.ReactElement => {
         <div className="mx-auto mt-24 pb-8 sm:w-11/12 md:w-4/5 lg:w-2/4">
           <SearchbarFilter userData={userData} />
           <div className="mt-5 space-y-5">
-            <h1 className="text-center font-semibold">
-              Pinned Notes
-            </h1>
+            <h1 className="text-center font-semibold">Pinned Notes</h1>
             <div className="space-y-5">
               {userData.notes
-                ?.filter(
-                  (x: Note) =>
-                    x.pinned && !x.trash && !x.archive
-                )
+                ?.filter((x: Note) => x.pinned && !x.trash && !x.archive)
                 .map((x: Note) => (
                   <NotesCard
                     key={x.id}
@@ -84,9 +74,7 @@ const NotesPage = (): React.ReactElement => {
             </div>
           </div>
           <div className="mt-5 space-y-4">
-            <h1 className="text-center font-semibold">
-              Other Notes
-            </h1>
+            <h1 className="text-center font-semibold">Other Notes</h1>
             <div className="space-y-5">
               {filterBySearchKey(
                 filter_by_search,
@@ -94,16 +82,11 @@ const NotesPage = (): React.ReactElement => {
                   filter_by_label,
                   sortByTime(
                     sort_by_time,
-                    filterByPrority(
-                      filter_by_priority,
-                      userData.notes
-                    )
+                    filterByPrority(filter_by_priority, userData.notes)
                   )
                 )
               )
-                .filter(
-                  (x) => !x.archive && !x.trash && !x.pinned
-                )
+                .filter((x) => !x.archive && !x.trash && !x.pinned)
                 .map((x) => (
                   <NotesCard
                     key={x.id}

@@ -17,18 +17,19 @@
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "firebase": "^9.15.0",
+    "json5": ">=1.0.2",
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
+    "react-spinners": "^0.13.8",
     "typescript": "4.9.4",
-    "zustand": "^4.1.5",
-    "json5": ">=1.0.2"
+    "zustand": "^4.1.5"
   },
   "devDependencies": {
-    "json5": ">=1.0.2",
     "autoprefixer": "^10.4.13",
+    "json5": ">=1.0.2",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
